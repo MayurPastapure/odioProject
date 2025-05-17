@@ -78,12 +78,12 @@ public class Test {
 		WebElement voice = driver.findElement(By.xpath("//*[text()='Voice']"));
 		voice.click();
 		
-		WebElement cardContainer = driver.findElement(By.xpath("//*[@class='card-container']"));
-		wait.until(ExpectedConditions.visibilityOf(cardContainer));
+		WebElement groupCardContainer = driver.findElement(By.xpath("//*[@class='card-container']"));
+		wait.until(ExpectedConditions.visibilityOf(groupCardContainer));
 		
 		WebElement groupView = driver.findElement(By.xpath("//*[@value='Group']"));
 		groupView.click();
-		Thread.sleep(1000);
+		Thread.sleep(500);
 		
 
 	}
@@ -156,6 +156,19 @@ public class Test {
 		    js.executeScript("window.scrollTo(0,0);");
 		    
 	}
+	
+	public void searchCallByFileName() {
+		WebElement agentView = driver.findElement(By.xpath("//*[@value='Agent']"));
+		wait.until(ExpectedConditions.elementToBeClickable(agentView));
+		agentView.click();
+		WebElement agentCardBody = driver.findElement(By.xpath("//*[@class='salesCallCard card-body']"));
+		wait.until(ExpectedConditions.visibilityOf(agentCardBody));
+		
+		WebElement filterSwitch = driver.findElement(By.xpath("//*[@class='bx bx-filter-alt']"));
+		wait.until(ExpectedConditions.elementToBeClickable(filterSwitch)).click();
+		
+		
+	}
 
 
 	
@@ -166,7 +179,8 @@ public class Test {
 		obj.dashboardFilter();
 		obj.conversationsPage();
 		//obj.conversationPagination();
-		obj.conversationSpecificPage();
+		//obj.conversationSpecificPage();
+		obj.searchCallByFileName();
 		
 		//obj.browserClose();
 	}
