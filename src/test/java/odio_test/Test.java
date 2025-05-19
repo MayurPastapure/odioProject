@@ -1,5 +1,7 @@
 package odio_test;
 
+import static org.testng.Assert.assertEquals;
+
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +17,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 
 public class Test {
 	WebDriver driver = new ChromeDriver();
@@ -167,6 +170,34 @@ public class Test {
 		WebElement filterSwitch = driver.findElement(By.xpath("//*[@class='bx bx-filter-alt']"));
 		wait.until(ExpectedConditions.elementToBeClickable(filterSwitch)).click();
 		
+		WebElement fileNameIn = driver.findElement(By.xpath("//*[@name='file']"));
+		wait.until(ExpectedConditions.visibilityOf(fileNameIn));
+//*****Provide specific file name*****		
+		fileNameIn.sendKeys("20240102-103337_77352587_90002285_HLTH_NEW");
+		
+		WebElement ApplyBtn = driver.findElement(By.xpath("//*[@type='submit' and @class='btn px-4 lh-base update-btn']"));
+		wait.until(ExpectedConditions.elementToBeClickable(ApplyBtn)).click();
+		
+		WebElement agentCard = driver.findElement(By.xpath("//*[@class='card']"));
+		wait.until(ExpectedConditions.visibilityOf(agentCard));
+		WebElement viewCallBtn = driver.findElement(By.xpath("//*[text()='View Call']"));
+		wait.until(ExpectedConditions.elementToBeClickable(viewCallBtn)).click();
+		
+		WebElement moreInfoBtn = driver.findElement(By.xpath("//*[text()='More Info.']"));
+		wait.until(ExpectedConditions.elementToBeClickable(moreInfoBtn)).click();
+		
+		WebElement fileName = driver.findElement(By.xpath("//ul[@class='ps-0']//span"));
+		String FileName = fileName.getText();
+		System.out.println(FileName);
+//*****Provide specific file name as above*****		
+		String ExpectedFileName = "20240102-103337_77352587_90002285_HLTH_NEW";
+		
+		Assert.assertTrue(
+		        FileName.contains(ExpectedFileName),
+		        "*** " + FileName + " does not contain " + ExpectedFileName + " ***");	
+		
+		WebElement moreInfoCloseBtn = driver.findElement(By.xpath("//button[@class='btn-close']"));
+		wait.until(ExpectedConditions.elementToBeClickable(moreInfoCloseBtn)).click();
 		
 	}
 
